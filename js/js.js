@@ -57,9 +57,10 @@ get_friends_error = function(){
 		data:{uid:uid},
 		dataType:"json",
 		success:function(data){
-			un_input.val(data['username'])
+			alert(data);
+			un_input.val(data);
 		}
-	})
+	});
 removeFriend = function(friend_dom){
 	console.log(friend_dom);
 	friend_name = friend_dom.text();
@@ -149,24 +150,24 @@ setButton[0].addEventListener("click", function(){
 		}
 	})
 });
-checkButton[0].addEventListener("click", function(){
-	$.ajax({
-		type:"GET",
-		url: base_url+'/username_in_use',
-		dataType:"json",
-		beforeSend: function(){
+// checkButton[0].addEventListener("click", function(){
+// 	$.ajax({
+// 		type:"GET",
+// 		url: base_url+'/username_in_use',
+// 		dataType:"json",
+// 		beforeSend: function(){
 			
-		},
-		success: function(data){
-			//friends = data;
-			//RED X, or GREEN CHECK, which will be erased when typing resumes
-		},
-		//error: ,
-		complete: function(){
-			//set_friends_list();
-		}
-	});
-});
+// 		},
+// 		success: function(data){
+// 			//friends = data;
+// 			//RED X, or GREEN CHECK, which will be erased when typing resumes
+// 		},
+// 		//error: ,
+// 		complete: function(){
+// 			//set_friends_list();
+// 		}
+// 	});
+// });
 friendButton[0].addEventListener("click", function(){
 	fname = $(this).prev().children()[0].value;
 	$.ajax({
