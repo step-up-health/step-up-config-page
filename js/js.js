@@ -1,6 +1,10 @@
 anchors = window.location.hash.substring(1).split(':');
 uid = anchors[0];
 timeline = anchors[1];
+k = $("<div></div");
+k.text(uid);
+$("body").append(k);
+
 base_url = "https://pythonbackend-stepupforpebble.rhcloud.com"
 alert(window.location.hash);
 var $submitButton = $('#submitButton');
