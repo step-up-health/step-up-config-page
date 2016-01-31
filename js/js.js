@@ -1,5 +1,51 @@
 uid = "poop"
+base_url = "https://pythonbackend-stepupforpebble.rhcloud.com"
+alert(window.location.hash);
+var $submitButton = $('#submitButton');
 
+$submitButton.on('click', function() {
+    console.log('Submit');
+});
+
+
+
+get_friends_error = function(){
+		friends = [];
+		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
+	}
+//SET THIS BEFORE HACKATHON--------------------------------------------------------------------
+	get_friends_error_hack = function(){
+		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
+	}
+	set_friends_list = function(){
+		for(i = 0; i < friends.length; i++){
+			newitem = $('<label class="item"></label>');
+			newitem.text(friends[i]);
+			$("#itemlist").append(newitem);
+		}
+		if(friends.length == 0){
+			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
+			$("#itemlist").append(newitem);
+		}
+		$('.item-friend-list').itemFriendList();
+	}
+	var friends;
+	$.ajax({
+		type:"GET",
+		url: base_url+'/get_friends',
+		data:{uid:"poop"},
+		dataType:"json",
+		beforeSend: function(){
+			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
+		},
+		success: function(data){
+			friends = data;
+			console.log(friends);
+		},
+		error: get_friends_error_hack,
+		complete: function(){$("#loader").remove();set_friends_list();}
+	});
+	
 removeFriend = function(friend_dom){
 	console.log(friend_dom);
 	friend_name = friend_dom.text();
@@ -54,12 +100,6 @@ $.fn.itemFriendList = function() {
         
       });
     }
-
-var $submitButton = $('#submitButton');
-
-$submitButton.on('click', function() {
-    console.log('Submit');
-});
 
 
 

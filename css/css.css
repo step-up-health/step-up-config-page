@@ -7,7 +7,9 @@
   color: #888888;
   text-align: center;
 }
-
+#itemlist{
+  max-width:100%;
+}
 .check-btn{
 	/*font-size:60%;*/
 /*	word-wrap: break-word;

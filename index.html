@@ -58,39 +58,6 @@
 		</div>
 	</body>
 	<script>
-	get_friends_error = function(){
-		friends = [];
-		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
-	}
-//SET THIS BEFORE HACKATHON--------------------------------------------------------------------
-	get_friends_error_hack = function(){
-		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
-	}
-	set_friends_list = function(){
-		for(i = 0; i < friends.length; i++){
-			newitem = $('<label class="item"></label>');
-			newitem.text(friends[i]);
-			$("#itemlist").append(newitem);
-		}
-		$('.item-friend-list').itemFriendList();
-	}
-	base_url = "http://localhost:9001"//https://pythonbackend-stepupforpebble.rhcloud.com
-	var friends;
-	$.ajax({
-		type:"GET",
-		url: base_url+'/get_friends',
-		data:{uid:"poop"},
-		dataType:"json",
-		beforeSend: function(){
-			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
-		},
-		success: function(data){
-			friends = data;
-			console.log(friends);
-		},
-		error: get_friends_error_hack,
-		complete: function(){$("#loader").remove();set_friends_list();}
-	});
 	
 	</script>
 			<script src="js/js.js"></script>
