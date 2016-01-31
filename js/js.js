@@ -6,7 +6,7 @@ timeline = anchors[1];
 // $("body").append(k);
 
 base_url = "https://pythonbackend-stepupforpebble.rhcloud.com"
-alert(window.location.hash);
+//alert(window.location.hash);
 var $submitButton = $('#submitButton');
 
 $submitButton.on('click', function() {
@@ -57,7 +57,7 @@ get_friends_error = function(){
 		data:{uid:uid},
 		dataType:"json",
 		success:function(data){
-			alert(data);
+			//alert(data);
 			un_input.val(data);
 		}
 	});
@@ -140,13 +140,25 @@ checkButton = $("#check-btn");
 friendButton = $("#friend-btn");
 
 setButton[0].addEventListener("click", function(){
+	uname = un_input.val();
 	$.ajax({
 		type:"GET",
 		url: base_url+"/set_username",
-		data:{uid: uid, username: un_input.val()},
-		dataType:"json",
+		data:{uid: uid, username: uname},
 		success: function(data){
+			alert(data);
+			alert(typeof(data));
+			if(data=="ok"){
+				alert("Name was successfully changed to " + uname + "!");
+			} else{
+				alert("Name was successfully set to " + uname + "!");
+			}
+		},
+		error: function(e){
 
+		},
+		complete: function(){
+			console.log("e");
 		}
 	})
 });
@@ -172,7 +184,7 @@ friendButton[0].addEventListener("click", function(){
 	fname = $(this).prev().children()[0].value;
 	$.ajax({
 		type:"GET",
-		url: base_url+'/add_friend',
+		url: base_url+'/send_friend_request',
 		data:{uid: uid, addusername: fname},
 		dataType:"json",
 		beforeSend:function(){
