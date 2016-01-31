@@ -1,4 +1,6 @@
-uid = "poop"
+anchors = window.location.hash.substring(1).split(':');
+uid = anchors[0];
+timeline = anchors[1];
 base_url = "https://pythonbackend-stepupforpebble.rhcloud.com"
 alert(window.location.hash);
 var $submitButton = $('#submitButton');
@@ -33,7 +35,7 @@ get_friends_error = function(){
 	$.ajax({
 		type:"GET",
 		url: base_url+'/get_friends',
-		data:{uid:"poop"},
+		data:{uid:uid},
 		dataType:"json",
 		beforeSend: function(){
 			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
