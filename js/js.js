@@ -1,5 +1,5 @@
 anchors = window.location.hash.substring(1).split(':');
-uid = anchors[0];
+uid = anchors[0] || "poop";
 timeline = anchors[1];
 // k = $("<div></div");
 // k.text(uid);
@@ -51,7 +51,15 @@ get_friends_error = function(){
 		error: get_friends_error_hack,
 		complete: function(){$("#loader").remove();set_friends_list();}
 	});
-	
+	$.ajax({
+		type:"GET",
+		url: base_url+'/get_username',
+		data:{uid:uid},
+		dataType:"json",
+		success:function(data){
+			un_input.val(data['username'])
+		}
+	})
 removeFriend = function(friend_dom){
 	console.log(friend_dom);
 	friend_name = friend_dom.text();
@@ -101,9 +109,7 @@ $.fn.itemFriendList = function() {
 
         // var $addButton = $('<div class="item add-item">Add one more...</div>');
 
-        //$list.append($addButton);
-
-        
+        //$list.append($addButton);        
       });
     }
 
