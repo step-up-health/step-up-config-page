@@ -5,7 +5,7 @@ timeline = anchors[1];
 // k.text(uid);
 // $("body").append(k);
 
-base_url = "https://pythonbackend-stepupforpebble.rhcloud.com"
+base_url = "https://pythonbackend-stepupforpebble.rhcloud.com";
 //alert(window.location.hash);
 var $submitButton = $('#submitButton');
 
@@ -20,23 +20,23 @@ $submitButton.on('click', function() {
 get_friends_error = function(){
 		friends = [];
 		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
-	}
+	};
 //SET THIS BEFORE HACKATHON--------------------------------------------------------------------
 	get_friends_error_hack = function(){
 		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
-	}
+	};
 	set_friends_list = function(){
 		for(i = 0; i < friends.length; i++){
 			newitem = $('<label class="item"></label>');
 			newitem.text(friends[i]);
 			$("#itemlist").append(newitem);
 		}
-		if(friends.length == 0){
+		if(friends.length === 0){
 			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
 			$("#itemlist").append(newitem);
 		}
 		$('.item-friend-list').itemFriendList();
-	}
+	};
 	var friends;
 	$.ajax({
 		type:"GET",
@@ -44,7 +44,7 @@ get_friends_error = function(){
 		data:{uid:uid},
 		dataType:"json",
 		beforeSend: function(){
-			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
+			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'));
 		},
 		success: function(data){
 			friends = data;
@@ -85,7 +85,7 @@ removeFriend = function(friend_dom){
 			}
 		});
 	}
-}
+};
 
 addFriendDom = function(friendName){
 	var newitem = $('<label class="item"></label>');
@@ -93,7 +93,7 @@ addFriendDom = function(friendName){
 	newitem.addClass("pending");
 	$("#itemlist").append(newitem);
 	//$('.item-friend-list').itemFriendList();
-}
+};
 
 $.fn.itemFriendList = function() {
       this.each(function() {
@@ -112,9 +112,9 @@ $.fn.itemFriendList = function() {
 
         // var $addButton = $('<div class="item add-item">Add one more...</div>');
 
-        //$list.append($addButton);        
+        //$list.append($addButton);
       });
-    }
+  };
 
 
 
@@ -133,7 +133,7 @@ un_input[0].addEventListener("input", function(){
 			if(data=="False"){
 				$("#border-target").removeClass("bad");
 				$("#border-target").addClass("good");
-				$("#un-label").text("Username available!")
+				$("#un-label").text("Username available!");
 			} else {
 				$("#border-target").removeClass("good");
 				$("#border-target").addClass("bad");
@@ -150,7 +150,7 @@ un_input[0].addEventListener("input", function(){
 			//set_friends_list();
 		}
 	});
-})
+});
 un_input.keypress(function(e) {
             var key = e.which;
             if (key === 13) {
@@ -159,7 +159,7 @@ un_input.keypress(function(e) {
           });
 
 $("#friend-input").keypress(function(e) {
-	
+
             var key = e.which;
             if (key === 13) {
               friendClick($(this)[0].value, $(this));
@@ -188,8 +188,8 @@ set_username = function(){
 		complete: function(){
 			//console.log("e");
 		}
-	})
-}
+	});
+};
 setButton[0].addEventListener("click", set_username);
 // checkButton[0].addEventListener("click", function(){
 // 	$.ajax({
@@ -197,7 +197,7 @@ setButton[0].addEventListener("click", set_username);
 // 		url: base_url+'/username_in_use',
 // 		dataType:"json",
 // 		beforeSend: function(){
-			
+
 // 		},
 // 		success: function(data){
 // 			//friends = data;
@@ -219,7 +219,7 @@ friendClick = function(fname, inpu){
 		},
 		success: function(data){
 			alert("Friend request sent to " + fname + "!");
-			
+
 				addFriendDom(fname);
 				inpu.value='';
 				//[0].empty();
@@ -233,12 +233,11 @@ friendClick = function(fname, inpu){
 		complete: function(){
 
 		}
-	})
-}
+	});
+};
 friendButton[0].addEventListener("click", function(){
 	fname = $(this).prev().children()[0].value;
 	inpu = $(this).prev().children()[0];
 	friendClick(fname, inpu);
 
-})
-
+});
