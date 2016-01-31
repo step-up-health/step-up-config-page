@@ -172,6 +172,7 @@ friendButton[0].addEventListener("click", function(){
 
 		},
 		success: function(data){
+			alert(data);
 			if($.inArray(fname, data) >= 0){//data was returned and added correctly
 				addFriendDom(fname);
 				$(this).prev().children()[0].empty();
