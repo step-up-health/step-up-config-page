@@ -7,6 +7,9 @@
   color: #888888;
   text-align: center;
 }
+.item-container-header{
+  color:#777;
+}
 .help-text{
   font-size:0.7em;
   line-height:0.4em;
