@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<title></title>
+		<link rel='stylesheet' type='text/css' href='bower_components/Slate/dist/css/slate.min.css'>
+		<link rel="stylesheet" type="text/css" href = 'css/css.css'>
+		<script src='bower_components/Slate/dist/js/slate.min.js'></script>
+	</head>
+	<body>
+		
+		<div class='item-container'>
+		    <h1 class='title'>Watchface<br>Configuration Page</h1>
+		</div>
+		<div class='item-container'>
+		<div class='item-container-content'>
+		  <div class='item'>
+		    Use this configuration page to choose the settings you would like
+		    applied to this app.
+		  </div>
+		</div>
+		</div>
+
+		<div class="item-container">
+		  <div class="item-container-header">Set Username</div>
+		  <div class="item-container-content">
+		    <label class="item">
+		      <div class="item-input-wrapper item-input-wrapper-double-button">
+		        <input type="text" id="un-input" class="item-input" name="input-2" placeholder="RichardStallman"></input>
+
+		      
+		      </div>
+		      <input type="button" id="check-btn" class="check-btn item-button item-input-double-button item-input-button" value="CHECK">
+		      <input type="button" id="set-btn" class="item-button item-input-double-button item-input-button" value="SET">
+		    </label>
+		  </div>
+		</div>
+
+
+		<div class="item-container">
+		  <div class="item-container-header">Friends</div>
+		  <div class="item-container-content">
+
+		  	<div class="item-container sub-container">
+		  		<div class="item-container-header" style="border:0">Add a friend</div>
+		  		<label class="item add-friend-container">
+		      	<div class="item-input-wrapper item-input-wrapper-button">
+		      	  <input type="text" id="friend-input" class="item-input" name="input-2" placeholder="Friend's Name"></input>
+		      	</div>
+		      	<input type="button" id="friend-btn" class="item-button item-input-button" value="yolo">
+		    	</label>
+		    </div>
+		    <div class="item-container sub-container">
+		    	<!-- <div class="item-container-header">Friends</div> -->
+			    <div id="itemlist" class="item-friend-list">
+			</div>	      
+		    </div>
+		  </div>
+		</div>
+	</body>
+	<script>
+	get_friends_error = function(){
+		friends = [];
+		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
+	}
+//SET THIS BEFORE HACKATHON--------------------------------------------------------------------
+	get_friends_error_hack = function(){
+		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
+	}
+	set_friends_list = function(){
+		for(i = 0; i < friends.length; i++){
+			newitem = $('<label class="item"></label>');
+			newitem.text(friends[i]);
+			$("#itemlist").append(newitem);
+		}
+		$('.item-friend-list').itemFriendList();
+	}
+	base_url = "http://localhost:9001"//https://pythonbackend-stepupforpebble.rhcloud.com
+	var friends;
+	$.ajax({
+		type:"GET",
+		url: base_url+'/get_friends',
+		data:{uid:"poop"},
+		dataType:"json",
+		beforeSend: function(){
+			$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
+		},
+		success: function(data){
+			friends = data;
+			console.log(friends);
+		},
+		error: get_friends_error_hack,
+		complete: function(){$("#loader").remove();set_friends_list();}
+	});
+	
+	</script>
+			<script src="js/js.js"></script>
+
+</html>

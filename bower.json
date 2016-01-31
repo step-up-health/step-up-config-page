@@ -1,0 +1,22 @@
+{
+  "name": "step-up-config-page",
+  "homepage": "https://github.com/step-up-health/step-up-config-page",
+  "authors": [
+    "KEvin Wang <kevinwang@kevinwang.us>"
+  ],
+  "description": "slate config page for Step Up pebble app",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Slate": "https://github.com/pebble/slate.git#^0.0.3"
+  }
+}
