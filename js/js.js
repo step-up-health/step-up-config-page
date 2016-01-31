@@ -21,9 +21,8 @@ get_friends_error = function(){
 		friends = [];
 		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
 	};
-//SET THIS BEFORE HACKATHON--------------------------------------------------------------------
 	get_friends_error_hack = function(){
-		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
+		friends = ["<i>Donald Glover</i>", "<i>Dave Chappelle</i>", "<i>Louis Szekely</i>", "<i>Aziz Ansari</i>"];
 	};
 	set_friends_list = function(){
 		for(i = 0; i < friends.length; i++){
@@ -32,7 +31,7 @@ get_friends_error = function(){
 			$("#itemlist").append(newitem);
 		}
 		if(friends.length === 0){
-			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
+			newitem = $('<div>(You don\'t have any friends yet.)</div>');
 			$("#itemlist").append(newitem);
 		}
 		$('.item-friend-list').itemFriendList();
