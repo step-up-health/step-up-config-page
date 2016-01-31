@@ -25,6 +25,13 @@ removeFriend = function(friend_dom){
 	}
 }
 
+addFriendDom = function(friendName){
+	var newitem = $('<label class="item"></label>');
+	newitem.text(friendName);
+	$("#itemlist").append(newitem);
+	$('.item-friend-list').itemFriendList();
+}
+
 $.fn.itemFriendList = function() {
       this.each(function() {
         var $list = $(this);
@@ -44,42 +51,7 @@ $.fn.itemFriendList = function() {
 
         //$list.append($addButton);
 
-        //$addButton.click(function() {
-        //  var $inbox = $('<div class="item">'
-        //                + '<div class="item-input-wrapper">'
-        //                  + '<input class="item-input" type="text" name="focus-box">'
-          //               + '</div>'
-          //             + '</div>');
-
-          // $inbox.insertBefore($list.children().last());
-
-          // var $input = $inbox.find('input');
-          // $input.focus();
-
-          // $input.keypress(function(e) {
-          //   var key = e.which;
-          //   if (key === 13) {
-          //     stopEditing($input, $inbox);
-          //   }
-          // });
-
-          // $input.focusout(function() {
-          //   stopEditing($input, $inbox);
-          // });
-
-          // function stopEditing(input, inbox) {
-          //   var text = input.val();
-          //   inbox.text(text);
-
-            // var deletebutton = $('<div class="delete-item"></div>');
-
-            // deletebutton.click(function(){
-            //   $(this).parent().remove();
-            // });
-
-            //inbox.append(deletebutton);
-          //}
-        //});
+        
       });
     }
 
@@ -88,6 +60,9 @@ var $submitButton = $('#submitButton');
 $submitButton.on('click', function() {
     console.log('Submit');
 });
+
+
+
 un_input = $("#un-input");
 un_input[0].addEventListener("input", function(){
 	$.ajax({
@@ -109,6 +84,7 @@ un_input[0].addEventListener("input", function(){
 })
 setButton = $("#set-btn");
 checkButton = $("#check-btn");
+friendButton = $("#friend-btn");
 
 setButton[0].addEventListener("click", function(){
 	$.ajax({
@@ -139,3 +115,27 @@ checkButton[0].addEventListener("click", function(){
 		}
 	});
 });
+friendButton[0].addEventListener("click", function(){
+	fname = $(this).prev().children()[0].value;
+	$.ajax({
+		type:"GET",
+		url: base_url+'/add_friend',
+		data:{uid: uid, addusername: fname},
+		dataType:"json",
+		beforeSend:function(){
+
+		},
+		success: function(data){
+			if($.inArray(fname, data) >= 0){//data was returned and added correctly
+				addFriendDom(fname);
+				$(this).prev().children()[0].empty();
+			} else {
+				console.log(data);
+				console.log(data.length);
+			}
+		},
+		complete: function(){
+
+		}
+	})
+})
