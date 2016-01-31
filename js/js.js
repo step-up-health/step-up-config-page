@@ -180,23 +180,26 @@ setButton[0].addEventListener("click", function(){
 // });
 friendButton[0].addEventListener("click", function(){
 	fname = $(this).prev().children()[0].value;
+	self = $(this);
 	$.ajax({
 		type:"GET",
 		url: base_url+'/send_friend_request',
 		data:{uid: uid, addusername: fname},
-		dataType:"json",
 		beforeSend:function(){
 
 		},
 		success: function(data){
-			alert(data);
+			alert("Friend request sent to " + fname + "!");
 			
 				addFriendDom(fname);
-				$(this).prev().children()[0].empty();
-			} else {
+				self.prev().children()[0].value='';
+				//[0].empty();
 				console.log(data);
 				console.log(data.length);
-			}
+		},
+		error: function(e){
+			alert("Oh no!  Friend request NOT sent to " + fname + "!");
+			console.log(e);
 		},
 		complete: function(){
 
