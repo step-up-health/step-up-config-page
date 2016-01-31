@@ -131,11 +131,15 @@ un_input[0].addEventListener("input", function(){
 		},
 		success: function(data){
 			console.log(data);
-			$("border-target").removeClass("bad");
-			$("border-target").addClass("good");
-			$("border-target").removeClass("good");
-			$("border-target").addClass("bad");
-
+			if(data=="False"){
+				$("#border-target").removeClass("bad");
+				$("#border-target").addClass("good");
+				$("#un-label").text("Username available!")
+			} else {
+				$("#border-target").removeClass("good");
+				$("#border-target").addClass("bad");
+				$("#un-label").text("Username already taken.");
+			}
 
 			//RED X, or GREEN CHECK, which will be erased when typing resumes
 		},

@@ -7,6 +7,10 @@
   color: #888888;
   text-align: center;
 }
+.help-text{
+  font-size:0.7em;
+  line-height:0.4em;
+}
 .item-container-content{
   border-bottom-width:4px;
   border-bottom-color:#bababa;
