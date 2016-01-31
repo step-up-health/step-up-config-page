@@ -157,6 +157,14 @@ un_input.keypress(function(e) {
             }
           });
 
+$("#friend-input").keypress(function(e) {
+	
+            var key = e.which;
+            if (key === 13) {
+              friendClick($(this)[0].value, $(this));
+            }
+          });
+
 setButton = $("#set-btn");
 checkButton = $("#check-btn");
 friendButton = $("#friend-btn");
@@ -200,10 +208,8 @@ setButton[0].addEventListener("click", set_username);
 // 		}
 // 	});
 // });
-friendButton[0].addEventListener("click", function(){
-	fname = $(this).prev().children()[0].value;
-	self = $(this);
-	$.ajax({
+friendClick = function(fname, inpu){
+		$.ajax({
 		type:"GET",
 		url: base_url+'/send_friend_request',
 		data:{uid: uid, addusername: fname},
@@ -214,7 +220,7 @@ friendButton[0].addEventListener("click", function(){
 			alert("Friend request sent to " + fname + "!");
 			
 				addFriendDom(fname);
-				self.prev().children()[0].value='';
+				inpu.value='';
 				//[0].empty();
 				console.log(data);
 				console.log(data.length);
@@ -227,5 +233,11 @@ friendButton[0].addEventListener("click", function(){
 
 		}
 	})
+}
+friendButton[0].addEventListener("click", function(){
+	fname = $(this).prev().children()[0].value;
+	inpu = $(this).prev().children()[0];
+	friendClick(fname, inpu);
+
 })
 
