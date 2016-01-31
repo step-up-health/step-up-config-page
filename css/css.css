@@ -7,6 +7,15 @@
   color: #888888;
   text-align: center;
 }
+input[type=button]:hover{
+  /*-webkit-filter: saturate(250%);
+  filter: saturate(250%);*/
+  background-color:#df2700;
+}
+input[type=button]:active{
+  -webkit-filter: saturate(70%);
+  filter: saturate(70%);
+}
 .item-container-header{
   color:#777;
 }

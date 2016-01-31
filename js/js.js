@@ -11,8 +11,6 @@ var $submitButton = $('#submitButton');
 
 $submitButton.on('click', function() {
     console.log('Submit');
-    alert("SUBMIT BOTTON2");
-
     //var return_to = getQueryParam('return_to', 'pebblejs://close#');
     location.href = 'pebblejs://close#'; //+ encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
 });
