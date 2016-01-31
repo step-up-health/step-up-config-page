@@ -90,8 +90,9 @@ removeFriend = function(friend_dom){
 addFriendDom = function(friendName){
 	var newitem = $('<label class="item"></label>');
 	newitem.text(friendName);
+	newitem.addClass("pending");
 	$("#itemlist").append(newitem);
-	$('.item-friend-list').itemFriendList();
+	//$('.item-friend-list').itemFriendList();
 }
 
 $.fn.itemFriendList = function() {
