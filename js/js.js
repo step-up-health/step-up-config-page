@@ -11,6 +11,7 @@ var $submitButton = $('#submitButton');
 
 $submitButton.on('click', function() {
     console.log('Submit');
+    alert("SUBMIT BOTTON");
 });
 
 
