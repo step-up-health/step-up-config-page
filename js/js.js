@@ -130,7 +130,7 @@ un_input[0].addEventListener("input", function(){
 		},
 		success: function(data){
 			console.log(data);
-			if(data=="False"){
+			if(data=='"False"'){
 				$("#border-target").removeClass("bad");
 				$("#border-target").addClass("good");
 				$("#un-label").text("Username available!");
