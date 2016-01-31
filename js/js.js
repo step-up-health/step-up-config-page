@@ -146,8 +146,6 @@ setButton[0].addEventListener("click", function(){
 		url: base_url+"/set_username",
 		data:{uid: uid, username: uname},
 		success: function(data){
-			alert(data);
-			alert(typeof(data));
 			if(data=="ok"){
 				alert("Name was successfully changed to " + uname + "!");
 			} else{
@@ -155,10 +153,10 @@ setButton[0].addEventListener("click", function(){
 			}
 		},
 		error: function(e){
-
+			alert("Something went wrong!  Name was NOT set to " + uname + ".");
 		},
 		complete: function(){
-			console.log("e");
+			//console.log("e");
 		}
 	})
 });
@@ -192,7 +190,7 @@ friendButton[0].addEventListener("click", function(){
 		},
 		success: function(data){
 			alert(data);
-			if($.inArray(fname, data) >= 0){//data was returned and added correctly
+			
 				addFriendDom(fname);
 				$(this).prev().children()[0].empty();
 			} else {
