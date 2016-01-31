@@ -123,7 +123,7 @@ un_input[0].addEventListener("input", function(){
 	$.ajax({
 		type:"GET",
 		url: base_url+'/username_in_use',
-		data: {username: un_input.val()},
+		data: {username: un_input.val(), uid: uid},
 		dataType:"json",
 		beforeSend: function(){
 			//LOADING ICON
