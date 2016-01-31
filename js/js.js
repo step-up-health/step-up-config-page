@@ -71,7 +71,6 @@ removeFriend = function(friend_dom){
 			type:"GET",
 			url: base_url+'/delete_friend',
 			data: {uid: uid, deleteusername: friend_name},
-			dataType:"json",
 			beforeSend: function(){
 				//LOADING ICON
 			},
@@ -128,19 +127,35 @@ un_input[0].addEventListener("input", function(){
 			//LOADING ICON
 		},
 		success: function(data){
+			console.log(data);
+			$("border-target").removeClass("bad");
+			$("border-target").addClass("good");
+			$("border-target").removeClass("good");
+			$("border-target").addClass("bad");
+
+
 			//RED X, or GREEN CHECK, which will be erased when typing resumes
 		},
-		//error: ,
+		error: function(data){
+			console.log("we lost");
+			console.log(data);
+		},
 		complete: function(){
 			//set_friends_list();
 		}
 	});
 })
+un_input.keypress(function(e) {
+            var key = e.which;
+            if (key === 13) {
+              set_username();
+            }
+          });
+
 setButton = $("#set-btn");
 checkButton = $("#check-btn");
 friendButton = $("#friend-btn");
-
-setButton[0].addEventListener("click", function(){
+set_username = function(){
 	uname = un_input.val();
 	$.ajax({
 		type:"GET",
@@ -160,7 +175,8 @@ setButton[0].addEventListener("click", function(){
 			//console.log("e");
 		}
 	})
-});
+}
+setButton[0].addEventListener("click", set_username);
 // checkButton[0].addEventListener("click", function(){
 // 	$.ajax({
 // 		type:"GET",
@@ -207,3 +223,4 @@ friendButton[0].addEventListener("click", function(){
 		}
 	})
 })
+

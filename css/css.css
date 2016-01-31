@@ -7,8 +7,18 @@
   color: #888888;
   text-align: center;
 }
+.item-container-content{
+  border-bottom-width:4px;
+  border-bottom-color:#bababa;
+}
 #itemlist{
   max-width:100%;
+}
+#border-target.good{
+  border-color:#3c763d;
+}
+#border-target.bad{
+  border-color:#a94442;
 }
 .check-btn{
 	/*font-size:60%;*/
