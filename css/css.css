@@ -80,11 +80,20 @@ input[type=button]:active{
   transform: translateZ(0);
 }
 .pending:after{
-  position:absolute;
-  right:10%;
-  content:"pending";
-  text-align:right;
-  color:#bbb;
+  float: right;
+  content: "pending";
+  text-align: right;
+  color: #bbb;
+}
+.delete-item {
+    margin-right: 10px;
+}
+.item-friend-list label .item-button {
+    position: static;
+    float: right;
+    height: 33px;
+    font-size: 0.7em;
+    margin: -3px 0;
 }
 .loader:before {
   width: 50%;
