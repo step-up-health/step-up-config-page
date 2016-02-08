@@ -20,24 +20,36 @@ $submitButton.on('click', function() {
 get_friends_error = function(){
 		friends = [];
 		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
-	}
-//SET THIS BEFORE HACKATHON--------------------------------------------------------------------
-	get_friends_error_hack = function(){
+}
+get_friends_error_hack = function(){
 		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
-	}
-	set_friends_list = function(){
+}
+set_friends_list = function(){
 		for(i = 0; i < friends.length; i++){
 			newitem = $('<label class="item"></label>');
 			newitem.text(friends[i]);
 			$("#itemlist").append(newitem);
 		}
-		if(friends.length == 0){
+		if(friends.length == 0 && outgoing_friend_requests != undefined && outgoing_friend_requests.length == 0){
 			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
 			$("#itemlist").append(newitem);
 		}
 		$('.item-friend-list').itemFriendList();
+}
+function set_outgoing_friends(){
+	for(i = 0; i< outgoing_friend_requests.length; i++){
+		newitem = $('<label class="item"></label>');
+			newitem.text(outgoing_friend_requests[i]);
+			newitem.addClass("pending");
+			$("#itemlist").append(newitem);
 	}
+	if(friends != undefined && friends.length == 0 && outgoing_friend_requests.length == 0){
+			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
+			$("#itemlist").append(newitem);
+	}
+}
 	var friends;
+	var outgoing_friend_requests;
 	$.ajax({
 		type:"GET",
 		url: base_url+'/get_friends',
@@ -50,8 +62,22 @@ get_friends_error = function(){
 			friends = data;
 			console.log(friends);
 		},
-		error: get_friends_error_hack,
+		error: get_friends_error,
 		complete: function(){$("#loader").remove();set_friends_list();}
+	});
+	$.ajax({
+		type:"GET",
+		url: base_url+'/get_outgoing_friend_reqs',
+		data:{uid:uid},
+		dataType:"json",
+		beforeSend: function(){
+			//$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
+		},
+		success: function(data){
+			outgoing_friend_requests = data;
+		},
+		//error: get_friends_error,
+		complete: function(){set_outgoing_friends();}
 	});
 	$.ajax({
 		type:"GET",
