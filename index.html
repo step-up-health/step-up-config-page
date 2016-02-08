@@ -1,77 +1,60 @@
 <!DOCTYPE html>
-<html lang = "en">
-	<head>
-		<title></title>
-		<link rel='stylesheet' type='text/css' href='bower_components/Slate/dist/css/slate.min.css'>
-		<link rel="stylesheet" type="text/css" href = 'css/css.css'>
-		<script src='bower_components/Slate/dist/js/slate.min.js'></script>
-	</head>
-	<body>
-		
-		<div class='item-container'>
-		    <h1 class='title'>STEP-UP<br>Configuration Page</h1>
-		</div>
-		<div class='item-container'>
-		<div class='item-container-content'>
-<!-- 		  <div class='item'>
-		    Use this configuration page to choose the settings you would like
-		    applied to this app.
-		  </div> -->
-		</div>
-		</div>
+<html lang="en">
 
-		<div class="item-container">
-		  <div class="item-container-header">Set Username</div>
-		  <div class="item-container-content">
-		    <label class="item">
-		      <div id="border-target" class="item-input-wrapper item-input-wrapper-button">
-		        <input type="text" id="un-input" class="item-input" name="input-2" placeholder="rmstallman">
-		        <!-- <div style="height:10px;position:relative;right:0px;top:0px">t</div> -->
-		    	</input>
+<head>
+    <title></title>
+    <link rel='stylesheet' type='text/css' href='bower_components/Slate/dist/css/slate.min.css'>
+    <link rel="stylesheet" type="text/css" href='css/css.css'>
+    <script src='bower_components/Slate/dist/js/slate.min.js'></script>
+</head>
 
-		      </div>
-		      		      	<label id="un-label" class="help-text"></label>
-
-		      <!-- <input type="button" id="check-btn" class="check-btn item-button item-input-button item-input-button" value="CHECK"> -->
-		      <input type="button" id="set-btn" class="item-button item-input-button item-input-button" value="SET">
-		    </label>
-		  </div>
-		</div>
-
-
-		<div class="item-container">
-		  <div class="item-container-header">Friends</div>
-		  <div class="item-container-content">
-
-		  	<div class="item-container sub-container">
-		  		<div class="item-container-header" style="border:0">Add a friend</div>
-		  		<label class="item add-friend-container">
-		      	<div class="item-input-wrapper item-input-wrapper-button">
-		      	  <input type="text" autocorrect="off" autocapitalize="off" spellcheck="false" id="friend-input" class="item-input" name="input-2" placeholder="Friend's Name"></input>
-		      	</div>
-		      	<input type="button" id="friend-btn" class="item-button item-input-button" value="Add">
-		    	</label>
-		    </div>
-		    <div class="item-container sub-container">
-		    	<!-- <div class="item-container-header">Friends</div> -->
-			    <div id="itemlist" class="item-friend-list">
-			</div>	      
-		    </div>
-		  </div>
-		</div>
-
-<div class='item-container'>
-    <div class='button-container'>
-      <input id='submitButton' type='button' class='item-button' value='DONE'>
+<body>
+    <div class='item-container'>
+        <h1 class='title'>STEP-UP<br>Configuration Page</h1> </div>
+    <div class='item-container'>
+        <div class='item-container-content'>
+            <!--           <div class='item'>
+            Use this configuration page to choose the settings you would like
+            applied to this app.
+        </div> --></div>
     </div>
-  </div>
+    <div class="item-container">
+        <div class="item-container-header">Set Username</div>
+        <div class="item-container-content"> <label class="item">
+            <div id="border-target" class="item-input-wrapper item-input-wrapper-button">
+                <input type="text" id="un-input" class="item-input" name="input-2" placeholder="rmstallman">
+                <!-- <div style="height:10px;position:relative;right:0px;top:0px">t</div> -->
+            </input>
 
-	</body>
-	<script>
-	// k = $("<div></div>");
-	// k.text(Math.random());
-	// document.body.appendChild(k[0]);
-	</script>
-			<script src="js/js.js"></script>
+        </div>
+        <label id="un-label" class="help-text"></label>
+            <!-- <input type="button" id="check-btn" class="check-btn item-button item-input-button item-input-button" value="CHECK"> --><input type="button" id="set-btn" class="item-button item-input-button item-input-button" value="SET"> </label>
+        </div>
+    </div>
+    <div class="item-container">
+        <div class="item-container-header">Friends</div>
+        <div class="item-container-content">
+            <div class="item-container sub-container">
+                <div class="item-container-header" style="border:0">Add a friend</div>
+                <label class="item add-friend-container">
+                    <div class="item-input-wrapper item-input-wrapper-button">
+                        <input type="text" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" id="friend-input" class="item-input"
+                            name="input-2" placeholder="Friend's Name"></input>
+                    </div>
+                    <input type="button" id="friend-btn" class="item-button item-input-button" value="Add">
+                </label>
+            </div>
+            <div class="item-container sub-container">
+                <!-- <div class="item-container-header">Friends</div> -->
+                <div id="itemlist" class="item-friend-list"> </div>
+            </div>
+        </div>
+    </div>
+    <div class='item-container'>
+        <div class='button-container'> <input id='submitButton' type='button' class='item-button' value='DONE'> </div>
+    </div>
+    <script src="js/js.js"></script>
+</body>
 
 </html>
