@@ -13,7 +13,6 @@ $submitButton.on('click', function() {
     //var return_to = getQueryParam('return_to', 'pebblejs://close#');
     location.href = 'pebblejs://close#'; //+ encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
 });
-<<<<<<< HEAD
 
 
 
@@ -22,7 +21,7 @@ get_friends_error = function(){
 		$("#itemlist").appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
 }
 get_friends_error_hack = function(){
-		friends = ["Donald Glover", "Dave Chappelle", "Louis Szekely", "Aziz Ansari"];
+    friends = ["<i>Donald Glover</i>", "<i>Dave Chappelle</i>", "<i>Louis Szekely</i>", "<i>Aziz Ansari</i>"];
 }
 set_friends_list = function(){
 		for(i = 0; i < friends.length; i++){
@@ -31,7 +30,7 @@ set_friends_list = function(){
 			$("#itemlist").append(newitem);
 		}
 		if(friends.length == 0 && outgoing_friend_requests != undefined && outgoing_friend_requests.length == 0){
-			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
+        newitem = $('<div>(You don\'t have any friends yet.)</div>');
 			$("#itemlist").append(newitem);
 		}
 		$('.item-friend-list').itemFriendList();
@@ -44,7 +43,7 @@ function set_outgoing_friends(){
 			$("#itemlist").append(newitem);
 	}
 	if(friends != undefined && friends.length == 0 && outgoing_friend_requests.length == 0){
-			newitem = $('<div>YOU HAVE NO FRIENDS rn</div>');
+        newitem = $('<div>(You don\'t have any friends yet.)</div>');
 			$("#itemlist").append(newitem);
 	}
 }
@@ -121,100 +120,6 @@ addFriendDom = function(friendName){
 	//$('.item-friend-list').itemFriendList();
 }
 
-=======
-get_friends_error = function() {
-    friends = [];
-    $("#itemlist")
-        .appendChild($('<label class="item">ERROR FINDING FRIENDS</label>'));
-};
-get_friends_error_hack = function() {
-    friends = ["<i>Donald Glover</i>", "<i>Dave Chappelle</i>", "<i>Louis Szekely</i>", "<i>Aziz Ansari</i>"];
-};
-set_friends_list = function() {
-    for (i = 0; i < friends.length; i++) {
-        newitem = $('<label class="item"></label>');
-        newitem.text(friends[i]);
-        $("#itemlist")
-            .append(newitem);
-    }
-    if (friends.length === 0) {
-        newitem = $('<div>(You don\'t have any friends yet.)</div>');
-        $("#itemlist")
-            .append(newitem);
-    }
-    $('.item-friend-list')
-        .itemFriendList();
-};
-var friends;
-$.ajax({
-    type: "GET",
-    url: base_url + '/get_friends',
-    data: {
-        uid: uid
-    },
-    dataType: "json",
-    beforeSend: function() {
-        $("#itemlist")
-            .append($('<div id="loader" class="loader">loading</div>'));
-    },
-    success: function(data) {
-        friends = data;
-        console.log(friends);
-    },
-    error: get_friends_error_hack,
-    complete: function() {
-        $("#loader")
-            .remove();
-        set_friends_list();
-    }
-});
-$.ajax({
-    type: "GET",
-    url: base_url + '/get_username',
-    data: {
-        uid: uid
-    },
-    dataType: "json",
-    success: function(data) {
-        //alert(data);
-        un_input.val(data);
-    }
-});
-removeFriend = function(friend_dom) {
-    console.log(friend_dom);
-    friend_name = friend_dom.text();
-    if (confirm("Do you want to remove " + friend_name + " from your friends?")) {
-        //do it
-        $.ajax({
-            type: "GET",
-            url: base_url + '/delete_friend',
-            data: {
-                uid: uid,
-                deleteusername: friend_name
-            },
-            beforeSend: function() {
-                //LOADING ICON
-            },
-            success: function(data) {
-                //RED X, or GREEN CHECK, which will be erased when typing resumes
-                friend_dom.remove();
-            },
-            //error: ,
-            complete: function() {
-                //set_friends_list();
-            }
-        });
-    }
-};
-addFriendDom = function(friendName) {
-    var newitem = $('<label class="item"></label>');
-    newitem.text(friendName);
-    newitem.addClass("pending");
-    $("#itemlist")
-        .append(newitem);
-    //$('.item-friend-list').itemFriendList();
-};
->>>>>>> 4fb43bf0089a6d2f5eca8011d084f0acf895d10e
 $.fn.itemFriendList = function() {
     this.each(function() {
         var $list = $(this);
