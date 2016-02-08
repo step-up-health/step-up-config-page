@@ -27,6 +27,7 @@ function incoming_button_callback() {
         // success
         reloadFriends();
     }, function(err) {
+        alert("Something went wrong—friend request from " + fname + " not accepted.");
         console.log(err);
     }
     );
@@ -308,13 +309,11 @@ function sendFriendRequest(fname, success, failure) {
         },
         beforeSend: function() {},
         success: function(data) {
-            alert("Friend request sent to " + fname + "!");
             console.log(data);
             console.log(data.length);
             success();
         },
         error: function(e) {
-            alert("Oh no!  Friend request NOT sent to " + fname + "!");
             console.log(e);
             failure(e);
         },
@@ -331,7 +330,9 @@ friendButton[0].addEventListener("click", function() {
     sendFriendRequest(fname, function() {
         addFriendDom(fname);
         inpu.value = '';
-    }, function() { });
+    }, function() {
+        alert("Something went wrong—friend request not sent to " + fname + ".");
+    });
 });
 
 reloadFriends();
