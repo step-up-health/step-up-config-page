@@ -28,14 +28,14 @@ set_friends_list = function() {
         $("#itemlist")
             .append(newitem);
     }
-    if (friends.length == 0 && outgoing_friend_requests != undefined && outgoing_friend_requests.length == 0) {
+    if (friends.length === 0 && outgoing_friend_requests !== undefined && outgoing_friend_requests.length === 0) {
         newitem = $('<div>(You don\'t have any friends yet.)</div>');
         $("#itemlist")
             .append(newitem);
     }
     $('.item-friend-list')
         .itemFriendList();
-}
+};
 
 function set_outgoing_friends() {
     for (i = 0; i < outgoing_friend_requests.length; i++) {
@@ -45,7 +45,7 @@ function set_outgoing_friends() {
         $("#itemlist")
             .append(newitem);
     }
-    if (friends != undefined && friends.length == 0 && outgoing_friend_requests.length == 0) {
+    if (friends !== undefined && friends.length === 0 && outgoing_friend_requests.length === 0) {
         newitem = $('<div>(You don\'t have any friends yet.)</div>');
         $("#itemlist")
             .append(newitem);
@@ -62,7 +62,7 @@ $.ajax({
     dataType: "json",
     beforeSend: function() {
         $("#itemlist")
-            .append($('<div id="loader" class="loader">loading</div>'))
+            .append($('<div id="loader" class="loader">loading</div>'));
     },
     success: function(data) {
         friends = data;
@@ -130,7 +130,7 @@ removeFriend = function(friend_dom) {
             }
         });
     }
-}
+};
 addFriendDom = function(friendName) {
     var newitem = $('<label class="item"></label>');
     newitem.text(friendName);
@@ -138,7 +138,7 @@ addFriendDom = function(friendName) {
     $("#itemlist")
         .append(newitem);
     //$('.item-friend-list').itemFriendList();
-}
+};
 $.fn.itemFriendList = function() {
     this.each(function() {
         var $list = $(this);
