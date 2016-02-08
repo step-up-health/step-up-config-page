@@ -21,78 +21,137 @@ get_friends_error = function() {
 get_friends_error_hack = function() {
     friends = ["<i>Donald Glover</i>", "<i>Dave Chappelle</i>", "<i>Louis Szekely</i>", "<i>Aziz Ansari</i>"];
 };
-set_friends_list = function() {
+function incoming_button_callback() {
+    sendFriendRequest($(this).parent().data('username'),
+    function() {
+        // success
+        reloadFriends();
+    }, function(err) {
+        console.log(err);
+    }
+    );
+}
+function set_friends_list() {
+    $("#itemlist").empty();
     for (i = 0; i < friends.length; i++) {
         newitem = $('<label class="item"></label>');
         newitem.text(friends[i]);
         $("#itemlist")
             .append(newitem);
     }
-    if (friends.length === 0 && outgoing_friend_requests !== undefined && outgoing_friend_requests.length === 0) {
-        newitem = $('<div>(You don\'t have any friends yet.)</div>');
+    if (friends.length === 0) {
+        newitem = $('<div>You don\'t have any friends yet.</div>');
         $("#itemlist")
             .append(newitem);
     }
-    $('.item-friend-list')
+    $('#itemlist')
         .itemFriendList();
-};
-
+}
 function set_outgoing_friends() {
+    $("#itemlist-outgoing").empty();
     for (i = 0; i < outgoing_friend_requests.length; i++) {
         newitem = $('<label class="item"></label>');
         newitem.text(outgoing_friend_requests[i]);
         newitem.addClass("pending");
-        $("#itemlist")
+        $("#itemlist-outgoing")
             .append(newitem);
     }
-    if (friends !== undefined && friends.length === 0 && outgoing_friend_requests.length === 0) {
-        newitem = $('<div>(You don\'t have any friends yet.)</div>');
-        $("#itemlist")
+    if (outgoing_friend_requests.length === 0) {
+        newitem = $('<div>No outgoing friend requests.</div>');
+        $("#itemlist-outgoing")
             .append(newitem);
     }
 }
+function set_incoming_friends() {
+    $("#itemlist-incoming").empty();
+    for (i = 0; i < incoming_friend_requests.length; i++) {
+        newitem = $('<label class="item"></label>');
+        newitem.text(incoming_friend_requests[i]);
+        newitem.data('username', incoming_friend_requests[i]);
+        var acceptButton = $('<input type="button" value="Accept"' +
+                             'class="item-button item-input-button"/>');
+        newitem.addClass("incoming");
+        newitem.append(acceptButton);
+        $("#itemlist-incoming").append(newitem);
+        newitem.find('input').on('click', incoming_button_callback);
+    }
+    if (incoming_friend_requests.length === 0) {
+        newitem = $('<div>No incoming friend requests.</div>');
+        $("#itemlist-incoming")
+            .append(newitem);
+    }
+}
+function reloadFriends() {
+    $.ajax({
+        type: "GET",
+        url: base_url + '/get_friends',
+        data: {
+            uid: uid
+        },
+        dataType: "json",
+        beforeSend: function() {
+            $("#itemlist").empty();
+            $("#itemlist").append($('<div class="loader">loading</div>'));
+        },
+        success: function(data) {
+            $("#itemlist").empty();
+            friends = data;
+            console.log(friends);
+        },
+        error: get_friends_error,
+        complete: function() {
+            set_friends_list();
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: base_url + '/get_outgoing_friend_reqs',
+        data: {
+            uid: uid
+        },
+        dataType: "json",
+        beforeSend: function() {
+            $("#itemlist-outgoing").empty();
+            $("#itemlist-outgoing").append($('<div class="loader">loading</div>'));
+        },
+        success: function(data) {
+            $("#itemlist-outgoing").empty();
+            outgoing_friend_requests = data;
+        },
+        error: function(err) {
+            console.log('Problem getting outgoing friend reqs:', err);
+            outgoing_friend_requests = [];
+        },
+        complete: function() {
+            set_outgoing_friends();
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: base_url + '/get_incoming_friend_reqs',
+        data: {
+            uid: uid
+        },
+        dataType: "json",
+        beforeSend: function() {
+            $("#itemlist-incoming").empty();
+            $("#itemlist-incoming").append($('<div class="loader">loading</div>'));
+        },
+        success: function(data) {
+            $("#itemlist-incoming").empty();
+            incoming_friend_requests = data;
+        },
+        error: function(err) {
+            console.log('Problem getting incoming friend reqs:', err);
+            incoming_friend_requests = [];
+        },
+        complete: function() {
+            set_incoming_friends();
+        }
+    });
+}
 var friends;
 var outgoing_friend_requests;
-$.ajax({
-    type: "GET",
-    url: base_url + '/get_friends',
-    data: {
-        uid: uid
-    },
-    dataType: "json",
-    beforeSend: function() {
-        $("#itemlist")
-            .append($('<div id="loader" class="loader">loading</div>'));
-    },
-    success: function(data) {
-        friends = data;
-        console.log(friends);
-    },
-    error: get_friends_error,
-    complete: function() {
-        $("#loader")
-            .remove();
-        set_friends_list();
-    }
-});
-$.ajax({
-    type: "GET",
-    url: base_url + '/get_outgoing_friend_reqs',
-    data: {
-        uid: uid
-    },
-    dataType: "json",
-    beforeSend: function() {
-        //$("#itemlist").append($('<div id="loader" class="loader">loading</div>'))
-    },
-    success: function(data) {
-        outgoing_friend_requests = data;
-    },
-    //error: get_friends_error,
-    complete: function() {
-        set_outgoing_friends();
-    }
-});
 $.ajax({
     type: "GET",
     url: base_url + '/get_username',
@@ -103,9 +162,12 @@ $.ajax({
     success: function(data) {
         //alert(data);
         un_input.val(data);
+    },
+    error: function(err) {
+        newUserPopup();
     }
 });
-removeFriend = function(friend_dom) {
+function removeFriend(friend_dom) {
     console.log(friend_dom);
     friend_name = friend_dom.text();
     if (confirm("Do you want to remove " + friend_name + " from your friends?")) {
@@ -130,15 +192,13 @@ removeFriend = function(friend_dom) {
             }
         });
     }
-};
-addFriendDom = function(friendName) {
+}
+function addFriendDom(friendName) {
     var newitem = $('<label class="item"></label>');
     newitem.text(friendName);
     newitem.addClass("pending");
-    $("#itemlist")
-        .append(newitem);
-    //$('.item-friend-list').itemFriendList();
-};
+    reloadFriends();
+}
 $.fn.itemFriendList = function() {
     this.each(function() {
         var $list = $(this);
@@ -238,24 +298,7 @@ set_username = function() {
     });
 };
 setButton[0].addEventListener("click", set_username);
-// checkButton[0].addEventListener("click", function(){
-//     $.ajax({
-//         type:"GET",
-//         url: base_url+'/username_in_use',
-//         dataType:"json",
-//         beforeSend: function(){
-//         },
-//         success: function(data){
-//             //friends = data;
-//             //RED X, or GREEN CHECK, which will be erased when typing resumes
-//         },
-//         //error: ,
-//         complete: function(){
-//             //set_friends_list();
-//         }
-//     });
-// });
-friendClick = function(fname, inpu) {
+function sendFriendRequest(fname, success, failure) {
     $.ajax({
         type: "GET",
         url: base_url + '/send_friend_request',
@@ -266,19 +309,18 @@ friendClick = function(fname, inpu) {
         beforeSend: function() {},
         success: function(data) {
             alert("Friend request sent to " + fname + "!");
-            addFriendDom(fname);
-            inpu.value = '';
-            //[0].empty();
             console.log(data);
             console.log(data.length);
+            success();
         },
         error: function(e) {
             alert("Oh no!  Friend request NOT sent to " + fname + "!");
             console.log(e);
+            failure(e);
         },
         complete: function() {}
     });
-};
+}
 friendButton[0].addEventListener("click", function() {
     fname = $(this)
         .prev()
@@ -286,5 +328,10 @@ friendButton[0].addEventListener("click", function() {
     inpu = $(this)
         .prev()
         .children()[0];
-    friendClick(fname, inpu);
+    sendFriendRequest(fname, function() {
+        addFriendDom(fname);
+        inpu.value = '';
+    }, function() { });
 });
+
+reloadFriends();

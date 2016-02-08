@@ -129,3 +129,21 @@ input[type=button]:active{
     transform: rotate(360deg);
   }
 }
+.friends-list-container {
+  margin: 0;
+}
+.item-friend-list > div:not(.loader) {
+  padding: 10px;
+}
+.item-friend-list > label, .item-friend-list > div:not(.loader) {
+  padding: 10px 20px;
+}
+.item-friend-list:not(:last-of-type) {
+    border-bottom: 4px solid #BABABA;
+}
+.item-friend-list:not(:first-of-type):before {
+  content: " ";
+  height: 20px;
+  display: block;
+  background-color: #EAEAEA;
+}
