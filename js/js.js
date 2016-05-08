@@ -2,7 +2,7 @@ anchors = window.location.hash.substring(1)
     .split(':');
 uid = anchors[0] || 'poop';
 timeline = anchors[1];
-base_url = 'https://pythonbackend-stepupforpebble.rhcloud.com';
+base_url = 'https://pythonbackend-stepupforpebble.rhcloud.com/v1';
 var $submitButton = $('#submitButton');
 $submitButton.on('click', function() {
     console.log('Submit');
